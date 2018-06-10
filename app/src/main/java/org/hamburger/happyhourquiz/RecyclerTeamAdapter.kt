@@ -30,7 +30,7 @@ class RecyclerTeamAdapter(var teams: SparseArray<Team>): RecyclerView.Adapter<Re
         private val progressBar: ProgressBar = view.findViewById(R.id.team_row_progress)
 
         fun bindData(team: Team){
-            Log.d("TeamViewHolder","bindData $team")
+            Log.d("TeamViewHolder","bindData $team size=${team.questions.size}")
             title.text = team.name
             progressBar.max = team.questions.size
             progressBar.progress = team.progress

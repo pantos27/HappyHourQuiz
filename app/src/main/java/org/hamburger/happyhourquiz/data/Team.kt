@@ -2,10 +2,13 @@ package org.hamburger.happyhourquiz.data
 
 import android.content.Context
 
-data class Team(val name: String="",val id: Int=-1,val currentQuestion: Int=-1,val lastUpdate: Long=0,
-                val progress: Int=0,val questionsOrder: String=""){
+data class Team(val name: String="", val id: Int=-1, val currentQuestion: Int=-1, val lastUpdate: Long=0,
+                val progress: Int=0, val questionsOrder: String=""){
+    companion object {
+        const val ORDER_DELIMITER="/"
+    }
+    val questions: List<Int> by lazy { questionsOrder.split(ORDER_DELIMITER).mapNotNull { it.toIntOrNull() } }
 
-    var questions: List<Int> = questionsOrder.split('|').mapNotNull { it.toIntOrNull() }
 }
 
 const val PREF = "pref"
