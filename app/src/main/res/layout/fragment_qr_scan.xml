@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:text="@string/hello_blank_fragment" />
-    <me.dm7.barcodescanner.zxing.ZXingScannerView
+    <me.dm7.barcodescanner.zbar.ZBarScannerView
         android:id="@+id/qrfragment_scannerview"
         android:layout_height="match_parent"
         android:layout_width="match_parent" />
