@@ -1,5 +1,6 @@
 package org.hamburger.happyhourquiz
 
+import android.arch.lifecycle.ViewModelProviders
 import android.content.pm.PackageManager
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -10,6 +11,7 @@ import android.os.Handler
 import android.util.Log
 import android.widget.Toast
 import org.hamburger.happyhourquiz.fragments.*
+import org.hamburger.happyhourquiz.viewmodels.TeamsViewModel
 
 class MainActivity : AppCompatActivity(), QrScanFragment.OnFragmentInteractionListener {
     override fun onScanComplete(data: String) {
@@ -18,7 +20,7 @@ class MainActivity : AppCompatActivity(), QrScanFragment.OnFragmentInteractionLi
 
     private var mDelayHandler: Handler? = null
     private val SPLASH_DELAY: Long = 3000 //3 seconds
-
+    public var viewModel: TeamsViewModel? = null
 
 
 
@@ -27,7 +29,7 @@ class MainActivity : AppCompatActivity(), QrScanFragment.OnFragmentInteractionLi
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         supportFragmentManager.beginTransaction().add(R.id.launch_container,LaunchFragment(),LaunchFragment.TAG).commit()
-
+        viewModel = this.let { ViewModelProviders.of(it).get(TeamsViewModel::class.java) }
 
         //Initialize the Handler
         mDelayHandler = Handler()
