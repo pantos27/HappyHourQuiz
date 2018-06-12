@@ -17,7 +17,7 @@ class QuestionViewModel: ViewModel(){
     }
     val currentQuestion = MutableLiveData<Question>()
 
-    private fun geQuestion(index: Int) {
+    public fun geQuestion(index: Int? = -1) {
 
         FirebaseDatabase.getInstance().getReference("questions").child(index.toString())
                 .addListenerForSingleValueEvent(object : ValueEventListener {

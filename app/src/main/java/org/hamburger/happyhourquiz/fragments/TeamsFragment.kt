@@ -13,6 +13,8 @@ import kotlinx.android.synthetic.main.fragment_teams.*
 import org.hamburger.happyhourquiz.R
 import org.hamburger.happyhourquiz.RecyclerTeamAdapter
 import org.hamburger.happyhourquiz.data.Team
+import org.hamburger.happyhourquiz.data.getUserTeam
+import org.hamburger.happyhourquiz.viewmodels.QuestionViewModel
 import org.hamburger.happyhourquiz.viewmodels.TeamsViewModel
 
 class TeamsFragment: Fragment(){
@@ -20,12 +22,14 @@ class TeamsFragment: Fragment(){
         const val TAG = "QuestionFragment"
     }
 
-    var viewModel: TeamsViewModel? = null
+    var teamsViewModel: TeamsViewModel? = null
+    var questionViewModel: QuestionViewModel? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        viewModel = activity?.let { ViewModelProviders.of(it).get(TeamsViewModel::class.java) }
+        teamsViewModel = activity?.let { ViewModelProviders.of(it).get(TeamsViewModel::class.java) }
+        questionViewModel = activity?.let { ViewModelProviders.of(it).get(QuestionViewModel::class.java) }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View =
@@ -36,11 +40,13 @@ class TeamsFragment: Fragment(){
         val adapter = RecyclerTeamAdapter(SparseArray())
         teams_recycler_view.adapter = adapter
 
-        viewModel?.teamLiveData?.observe(this, Observer<SparseArray<Team>> {
+        teamsViewModel?.teamLiveData?.observe(this, Observer<SparseArray<Team>> {
             it?.let {
                 Log.d(TAG,"live data changed. ${it.size()}")
                 adapter.teams = it
                 adapter.notifyDataSetChanged()
+
+                questionViewModel?.geQuestion(it[getUserTeam(context)]?.currentQuestion)
             }
         })
 
