@@ -20,12 +20,12 @@ class TeamsFragment: Fragment(){
         const val TAG = "QuestionFragment"
     }
 
-    lateinit var viewModel: TeamsViewModel
+    var viewModel: TeamsViewModel? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        viewModel = ViewModelProviders.of(this).get(TeamsViewModel::class.java)
+        viewModel = activity?.let { ViewModelProviders.of(it).get(TeamsViewModel::class.java) }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View =
@@ -36,7 +36,7 @@ class TeamsFragment: Fragment(){
         val adapter = RecyclerTeamAdapter(SparseArray())
         teams_recycler_view.adapter = adapter
 
-        viewModel.teamLiveData.observe(this, Observer<SparseArray<Team>> {
+        viewModel?.teamLiveData?.observe(this, Observer<SparseArray<Team>> {
             it?.let {
                 Log.d(TAG,"live data changed. ${it.size()}")
                 adapter.teams = it
