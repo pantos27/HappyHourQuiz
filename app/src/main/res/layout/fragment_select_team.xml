@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageView
+        android:layout_width="match_parent" android:src="@drawable/bg_entrance" android:alpha="0.1"
+        android:layout_height="match_parent" android:scaleType="fitXY" />
+
+
+
+    <Spinner
+        android:id="@+id/spinner_team_selectFragment"
+        style="@style/spinner_style"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        ></Spinner>
+
+
+</android.support.constraint.ConstraintLayout>
